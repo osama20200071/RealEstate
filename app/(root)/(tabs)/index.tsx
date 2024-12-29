@@ -13,17 +13,26 @@ const HomeScreen = () => {
       }}
     >
       <StatusBar style="dark" />
-      <Link style={{ padding: 6, backgroundColor: "white" }} href="/sign-in">
+      <Link
+        className="bg-slate-700 px-6 py-2 rounded text-slate-200 font-rubik"
+        href="/sign-in"
+      >
         Sign IN
       </Link>
-      <Link style={{ padding: 6, backgroundColor: "white" }} href="/explore">
+      <Link
+        className="bg-slate-700 px-6 py-2 rounded text-slate-200"
+        href="/explore"
+      >
         explore{" "}
       </Link>
-      <Link style={{ padding: 6, backgroundColor: "white" }} href="/profile">
+      <Link
+        className="bg-slate-700 px-6 py-2 rounded text-slate-200"
+        href="/profile"
+      >
         profile
       </Link>
       <Link
-        style={{ padding: 6, backgroundColor: "white" }}
+        className="bg-slate-700 px-6 py-2 rounded text-slate-200"
         href="/properties/22"
       >
         property 22

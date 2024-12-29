@@ -7,13 +7,18 @@ export default function SignIn() {
 
   return (
     <SafeAreaView className="bg-white h-full">
-      <ScrollView contentContainerClassName="h-full">
+      <ScrollView
+        contentContainerStyle={{
+          height: "100%",
+          paddingBottom: 20,
+        }}
+      >
         <Image
           source={images.onboarding}
           className="w-full h-4/6"
           resizeMode="contain"
         />
-        <View className="px-10">
+        <View className="px-8">
           <Text className="text-base text-center font-rubik uppercase text-black-200">
             Welcome to Restate
           </Text>
@@ -27,7 +32,7 @@ export default function SignIn() {
           <TouchableOpacity
             onPress={handleLogin}
             activeOpacity={0.7}
-            className="bg-white shadow-md shadow-zinc-600 rounded-full w-full py-4 mt-5"
+            className="bg-white shadow-md shadow-zinc-600 rounded-full w-full py-4 mt-4"
           >
             <View className="flex  flex-row items-center justify-center gap-3">
               <Image

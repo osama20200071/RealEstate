@@ -1,5 +1,4 @@
-import { View, Text, ActivityIndicator } from "react-native";
-import React from "react";
+import { ActivityIndicator } from "react-native";
 import { useGlobalContext } from "@/lib/global-provider";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Redirect, Slot } from "expo-router";
@@ -14,10 +13,9 @@ const Layout = () => {
       </SafeAreaView>
     );
   }
-  //!temp  =======================
-  // if (!isLoggedIn) {
-  //   return <Redirect href="/sign-in" />;
-  // }
+  if (!isLoggedIn) {
+    return <Redirect href="/sign-in" />;
+  }
 
   return <Slot />;
 };

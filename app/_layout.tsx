@@ -3,6 +3,7 @@ import { useFonts } from "expo-font";
 import "./global.css";
 import { useEffect } from "react";
 import GlobalProvider from "@/lib/global-provider";
+import { StatusBar } from "expo-status-bar";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -26,6 +27,7 @@ export default function RootLayout() {
 
   return (
     <GlobalProvider>
+      <StatusBar style="auto" />
       <Stack
         screenOptions={{
           headerShown: false,

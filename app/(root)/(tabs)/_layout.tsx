@@ -1,14 +1,34 @@
 import icons from "@/constants/icons";
 import { Tabs } from "expo-router";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Layout = () => {
   return (
     <Tabs
       safeAreaInsets={{ bottom: 10 }}
+      screenLayout={({ children }) => (
+        <SafeAreaView className="h-full bg-white">{children}</SafeAreaView>
+      )}
       screenOptions={{
         tabBarActiveTintColor: "#0061ff",
         tabBarShowLabel: false,
+        headerShown: false,
+        tabBarButton(props) {
+          return (
+            <TouchableOpacity
+              activeOpacity={0.9}
+              onPress={props.onPress}
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {props.children}
+            </TouchableOpacity>
+          );
+        },
       }}
     >
       <Tabs.Screen
@@ -50,7 +70,7 @@ type TabIconProps = {
 
 const TabIcon = ({ icon, focused, title }: TabIconProps) => {
   return (
-    <View className="flex flex-1 items-center justify-center mt-4">
+    <View className="flex flex-1 items-center justify-center mt-4 gap-1">
       <Image
         source={icon}
         resizeMode="contain"
@@ -62,7 +82,7 @@ const TabIcon = ({ icon, focused, title }: TabIconProps) => {
           focused
             ? "text-primary-300 font-rubik-medium"
             : "text-black-200 font-rubik"
-        } text-center mt-1 w-full text-xs`}
+        } text-center  w-full text-xs`}
       >
         {title}
       </Text>

@@ -14,10 +14,10 @@ const Layout = () => {
       </SafeAreaView>
     );
   }
-
-  if (!isLoggedIn) {
-    return <Redirect href="/sign-in" />;
-  }
+  //!temp  =======================
+  // if (!isLoggedIn) {
+  //   return <Redirect href="/sign-in" />;
+  // }
 
   return <Slot />;
 };

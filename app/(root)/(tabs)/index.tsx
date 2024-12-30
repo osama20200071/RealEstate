@@ -44,24 +44,6 @@ const HomeScreen = () => {
           </Text>
         </TouchableOpacity>
       )} */}
-      <Link
-        className="bg-slate-700 px-6 py-2 rounded text-slate-200"
-        href="/explore"
-      >
-        explore{" "}
-      </Link>
-      <Link
-        className="bg-slate-700 px-6 py-2 rounded text-slate-200"
-        href="/profile"
-      >
-        profile
-      </Link>
-      <Link
-        className="bg-slate-700 px-6 py-2 rounded text-slate-200"
-        href="/properties/22"
-      >
-        property 22
-      </Link>
     </View>
   );
 };

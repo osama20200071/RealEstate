@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Alert,
   Image,
   ScrollView,
@@ -53,7 +54,7 @@ export default function SignIn() {
             Login to Real Scout with Google
           </Text>
           <TouchableOpacity
-            onPress={handleLogin}
+            onPress={() => handleLogin()}
             activeOpacity={0.7}
             className="bg-white shadow-md shadow-zinc-600 rounded-full w-full py-4 mt-4"
           >

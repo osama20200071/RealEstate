@@ -4,32 +4,30 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  Alert,
+  ImageSourcePropType,
 } from "react-native";
 import icons from "@/constants/icons";
-import images from "@/constants/images";
 import { settings } from "@/constants/data";
 import { useGlobalContext } from "@/lib/global-provider";
 import { logout } from "@/lib/appwrite";
 
 const Profile = () => {
   const { user, refetch } = useGlobalContext();
-  console.log(JSON.stringify(user, null, 2));
+  // console.log(JSON.stringify(user, null, 2));
   const handleLogout = async () => {
-    const result = await logout();
-    if (result) {
-      Alert.alert("Success", "Logged out successfully");
+    try {
+      const result = await logout();
       refetch();
-    } else {
-      Alert.alert("Error", "Failed to logout");
+    } catch (error) {
+      error instanceof Error && console.error(error.message);
     }
   };
 
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      contentContainerClassName="pb-16 px-7"
-      stickyHeaderIndices={[0]}
+      contentContainerClassName="pb-8 px-7"
+      // stickyHeaderIndices={[0]}
     >
       <View className="flex flex-row items-center justify-between pt-5 bg-white">
         <Text className="text-xl font-rubik-bold">Profile</Text>
@@ -46,7 +44,7 @@ const Profile = () => {
             className="absolute bottom-10 right-2"
             activeOpacity={0.7}
           >
-            <Image source={icons.edit} className="size-9" />
+            <Image source={icons.edit} className="size-9 opacity-80" />
           </TouchableOpacity>
           <Text className="text-2xl font-rubik-bold mt-2">{user?.name}</Text>
         </View>
@@ -79,7 +77,8 @@ const Profile = () => {
 export default Profile;
 
 type SettingsItemProps = {
-  icon: any;
+  // icon: any;
+  icon: ImageSourcePropType;
   title: string;
   textStyle?: string;
   showArrow?: boolean;

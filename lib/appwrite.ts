@@ -21,7 +21,7 @@ export async function login() {
   try {
     const redirectUri = Linking.createURL("/");
 
-    const response = await account.createOAuth2Token(
+    const response = account.createOAuth2Token(
       OAuthProvider.Google,
       redirectUri
     );
@@ -40,6 +40,7 @@ export async function login() {
     if (!secret || !userId) throw new Error("Create OAuth2 token failed");
 
     const session = await account.createSession(userId, secret);
+    console.log(session);
     if (!session) throw new Error("Failed to create session");
 
     return true;

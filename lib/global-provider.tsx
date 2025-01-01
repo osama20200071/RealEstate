@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode } from "react";
+import React, { createContext, useContext, PropsWithChildren } from "react";
 
 import { getCurrentUser } from "./appwrite";
 import { useAppwrite } from "./useAppwrite";
@@ -19,11 +19,7 @@ interface User {
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 
-interface GlobalProviderProps {
-  children: ReactNode;
-}
-
-export const GlobalProvider = ({ children }: GlobalProviderProps) => {
+export const GlobalProvider = ({ children }: PropsWithChildren) => {
   const {
     data: user,
     loading,

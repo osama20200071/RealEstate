@@ -1,20 +1,69 @@
 import { Card, FeaturedCard } from "@/components/Cards";
-// import Filters from "@/components/Filters2";
 import Filters from "@/components/Filters";
+import NoResults from "@/components/NoResults";
 import Search from "@/components/Search";
-import { featuredCards } from "@/constants/data";
 import icons from "@/constants/icons";
+import { getLatestProperties, getProperties } from "@/lib/appwrite";
 import { useGlobalContext } from "@/lib/global-provider";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { useAppwrite } from "@/lib/useAppwrite";
+import { router, useLocalSearchParams } from "expo-router";
+import { useEffect } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const HomeScreen = () => {
   const { user } = useGlobalContext();
+  const params = useLocalSearchParams<{ filter?: string; query?: string }>();
+  const { data: latestProperties, loading: latestPropertiesLoading } =
+    useAppwrite({
+      fn: getLatestProperties,
+    });
+
+  const {
+    data: properties,
+    refetch,
+    loading,
+  } = useAppwrite({
+    fn: getProperties,
+    params: {
+      filter: params.filter!,
+      query: params.query!,
+      limit: 6,
+    },
+    skip: true,
+  });
+
+  useEffect(() => {
+    refetch({
+      filter: params.filter!,
+      query: params.query!,
+      limit: 6,
+    });
+  }, [params.filter, params.query]);
+
+  const handleCardPress = (id: string) => router.push(`/properties/${id}`);
+
   return (
     <FlatList
-      data={[1, 2, 3, 4]}
+      data={properties}
+      ListEmptyComponent={
+        loading ? (
+          <ActivityIndicator size={"large"} className="mt-5 text-primary-300" />
+        ) : (
+          <NoResults />
+        )
+      }
       className="px-5"
-      renderItem={(item) => <Card card={featuredCards[1]} />}
-      keyExtractor={(item) => item.toString()}
+      renderItem={({ item }) => (
+        <Card item={item} onPress={() => handleCardPress(item.$id)} />
+      )}
+      keyExtractor={(item) => item.$id}
       columnWrapperClassName="flex gap-4"
       numColumns={2}
       showsVerticalScrollIndicator={false}
@@ -52,19 +101,29 @@ const HomeScreen = () => {
                   </Text>
                 </TouchableOpacity>
               </View>
+              {latestPropertiesLoading && (
+                <ActivityIndicator
+                  size={"large"}
+                  className="text-primary-300"
+                />
+              )}
+              {(!latestProperties || latestProperties.length === 0) && (
+                <NoResults />
+              )}
               <FlatList
-                data={[1, 2, 3, 4]}
-                renderItem={() => <FeaturedCard card={featuredCards[0]} />}
-                keyExtractor={(item) => item.toString()}
+                data={latestProperties}
+                renderItem={({ item }) => (
+                  <FeaturedCard
+                    item={item}
+                    onPress={() => handleCardPress(item.$id)}
+                  />
+                )}
+                keyExtractor={(item) => item.$id}
                 horizontal
                 bounces={false}
                 showsHorizontalScrollIndicator={false}
                 contentContainerClassName="flex gap-4"
               />
-              {/* <View className="flex flex-row items-center gap-3 mt-3">
-                <FeaturedCard card={featuredCards[0]} />
-                <FeaturedCard card={featuredCards[1]} />
-              </View> */}
             </View>
 
             {/* recommendation section */}
@@ -80,11 +139,6 @@ const HomeScreen = () => {
                 </TouchableOpacity>
               </View>
               <Filters />
-
-              {/* <View className="flex flex-row flex-wrap items-center gap-5 mt-5">
-                <Card card={featuredCards[0]} />
-                <Card card={featuredCards[1]} />
-              </View> */}
             </View>
           </View>
         );

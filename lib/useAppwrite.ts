@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 interface UseAppwriteOptions<T, P extends Record<string, string | number>> {
   fn: (params: P) => Promise<T>;
   params?: P;
-  pause?: boolean;
+  skip?: boolean;
 }
 
 interface UseAppwriteReturn<T, P> {
@@ -17,10 +17,10 @@ interface UseAppwriteReturn<T, P> {
 export const useAppwrite = <T, P extends Record<string, string | number>>({
   fn,
   params = {} as P,
-  pause = false,
+  skip = false,
 }: UseAppwriteOptions<T, P>): UseAppwriteReturn<T, P> => {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(!pause);
+  const [loading, setLoading] = useState(!skip);
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = useCallback(
@@ -44,7 +44,7 @@ export const useAppwrite = <T, P extends Record<string, string | number>>({
   );
 
   useEffect(() => {
-    if (!pause) {
+    if (!skip) {
       fetchData(params);
     }
   }, []);

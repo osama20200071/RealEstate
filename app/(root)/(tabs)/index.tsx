@@ -25,7 +25,7 @@ const HomeScreen = () => {
   const { data: properties, isLoading } = useProperties({
     limit: 6,
     query: params.query!,
-    filter: params.filter!,
+    filter: params.filter || "All",
   });
 
   const ListHeader = useMemo(() => {

@@ -21,7 +21,7 @@ import { useMemo } from "react";
 const Explore = () => {
   const params = useLocalSearchParams<{ query?: string; filter?: string }>();
   const { data: properties, isLoading } = useProperties({
-    filter: params.filter!,
+    filter: params.filter || "All",
     query: params.query!,
     limit: 20,
   });

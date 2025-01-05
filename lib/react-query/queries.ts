@@ -15,7 +15,7 @@ export const useProperties = ({
   filter: string;
 }) => {
   return useQuery({
-    queryKey: ["properties", { query, filter }], // Unique query key
+    queryKey: ["properties", { query, filter, limit }], // Unique query key
     queryFn: async () => {
       try {
         return await getProperties({ limit, query, filter });

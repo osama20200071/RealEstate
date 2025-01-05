@@ -12,7 +12,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import icons from "@/constants/icons";
 import Search from "@/components/Search";
 import { Card } from "@/components/Cards";
-import Filters from "@/components/Filters1";
+import Filters from "@/components/Filters";
 import NoResults from "@/components/NoResults";
 
 import { useProperties } from "@/lib/react-query/queries";
@@ -56,7 +56,7 @@ const Explore = () => {
         </View>
       </View>
     );
-  }, [params.filter]);
+  }, [params.filter, properties?.length]);
 
   return (
     <SafeAreaView className="h-full bg-white">

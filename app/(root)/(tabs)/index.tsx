@@ -1,5 +1,5 @@
 import { Card, FeaturedCard } from "@/components/Cards";
-import Filters from "@/components/Filters1";
+import Filters from "@/components/Filters";
 import NoResults from "@/components/NoResults";
 import Search from "@/components/Search";
 import icons from "@/constants/icons";

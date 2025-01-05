@@ -2,8 +2,7 @@ import Comment from "@/components/Comment";
 import { facilities } from "@/constants/data";
 import icons from "@/constants/icons";
 import images from "@/constants/images";
-import { getPropertyById } from "@/lib/appwrite";
-import { useAppwrite } from "@/lib/useAppwrite";
+import { useSpecificProperty } from "@/lib/react-query/queries";
 import { router, useLocalSearchParams } from "expo-router";
 import {
   View,
@@ -20,18 +19,15 @@ import { Models } from "react-native-appwrite";
 
 const Property = () => {
   const { id } = useLocalSearchParams();
-  const { data: property, loading } = useAppwrite({
-    fn: getPropertyById,
-    params: { id: id as string },
+  const { data: property, isLoading } = useSpecificProperty({
+    id: id as string,
   });
 
-  if (loading) {
+  if (isLoading) {
     return <ActivityIndicator size={"large"} className="mt-56" />;
   }
 
   const screenHight = Dimensions.get("screen").height;
-
-  console.log(JSON.stringify(property, null, 2));
 
   return (
     <>
